@@ -113,7 +113,9 @@ public:
 	void getFromBin(std::ifstream& file)
 	{
 		size_t nameSize = 0;
-		file.read(reinterpret_cast<char*>(&nameSize), sizeof(name));
+		file.read(reinterpret_cast<char*>(&nameSize), sizeof(nameSize));
+		if (!file)
+			return;
 		char* tempName = new char[nameSize];
 		file.read(tempName, nameSize);
 		file.read(reinterpret_cast<char*>(this), sizeof(Event));
