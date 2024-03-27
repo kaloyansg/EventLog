@@ -17,8 +17,16 @@ public:
 	Event(const char* name, unsigned day, unsigned month, unsigned year, unsigned hour, unsigned minutes) :
 		date(day, month, year), time(hour, minutes)
 	{
-		this->name = new char[strlen(name) + 1];
-		strcpy(this->name, name);
+		if (name == nullptr || strlen(name) ==0)
+		{
+			this->name = new char[strlen("Event") + 1];
+		 strcpy(this->name, "Event");
+		}
+		else 
+		{
+			this->name = new char[strlen(name) + 1];
+			strcpy(this->name, name);
+		}
 	}
 
 	Event(const Event& other) : date(other.date), time(other.time)
