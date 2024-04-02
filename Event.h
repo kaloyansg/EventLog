@@ -46,8 +46,9 @@ public:
 
 		char* tempName = nullptr;
 		tempName = new (std::nothrow) char[strlen(other.name) + 1];
-		if (tempName)
-			strcpy(tempName, other.name);
+		if (!tempName)
+			return *this;
+		strcpy(tempName, other.name);
 
 		time = other.time;
 		date = other.date;
