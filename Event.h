@@ -10,29 +10,33 @@ class Event
 public:
 	Event() : date(1, 1, 2024), time(0, 0)
 	{
-		this->name = new char[strlen("Event") + 1];
-		strcpy(name, "Event");
+		this->name = new (std::nothrow) char[strlen("Event") + 1];
+		if (this->name)
+			strcpy(name, "Event");
 	}
 
 	Event(const char* name, unsigned day, unsigned month, unsigned year, unsigned hour, unsigned minutes) :
 		date(day, month, year), time(hour, minutes)
 	{
-		if (name == nullptr || strlen(name) ==0)
+		if (name == nullptr || strlen(name) == 0)
 		{
-			this->name = new char[strlen("Event") + 1];
-		 strcpy(this->name, "Event");
+			this->name = new (std::nothrow) char[strlen("Event") + 1];
+		 if (this->name)
+				strcpy(this->name, "Event");
 		}
 		else 
 		{
-			this->name = new char[strlen(name) + 1];
-			strcpy(this->name, name);
+			this->name = new (std::nothrow) char[strlen(name) + 1];
+			if (this->name)
+				strcpy(this->name, name);
 		}
 	}
 
 	Event(const Event& other) : date(other.date), time(other.time)
 	{
-		this->name = new char[strlen(other.name) + 1];
-		strcpy(this->name, other.name);
+		this->name = new (std::nothrow) char[strlen(other.name) + 1];
+		if (this->name)
+			strcpy(this->name, other.name);
 	}
 
 	Event& operator=(const Event& other)
@@ -40,8 +44,10 @@ public:
 		if (this == &other)
 			return *this;
 
-		char* tempName = new char[strlen(other.name) + 1];
-		strcpy(tempName, other.name);
+		char* tempName = nullptr;
+		tempName = new (std::nothrow) char[strlen(other.name) + 1];
+		if (tempName)
+			strcpy(tempName, other.name);
 
 		time = other.time;
 		date = other.date;
