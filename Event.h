@@ -133,6 +133,7 @@ public:
 			return;
 		char* tempName = new char[nameSize];
 		file.read(tempName, nameSize);
+		delete[] this->name;
 		file.read(reinterpret_cast<char*>(this), sizeof(Event));
 		name = tempName;
 	}
